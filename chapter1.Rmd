@@ -1,9 +1,4 @@
 
----
-title: "Chapter 1"
-author: "Kisun Pokharel"
-output: html_document
----
 # Tools and Methods for open and reproducible research
 
 The first week of the course covered basic tools and requirements for the rest of the weeks. I practiced basics of R by completing a [Data Camp](datacamp.com) exercise called ["R Short and Sweet"](https://www.datacamp.com/courses/r-short-and-sweet). In addition I brushed up git and rmarkdown by going through the first workshop as detailed below.

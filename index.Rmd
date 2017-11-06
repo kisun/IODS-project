@@ -13,8 +13,7 @@ output:
 ---
 
 ***
-<!-- I think we could basically include the same text that was written earlier so instead of writing again, i provided the link to text-->
-  
+
 ```{r child = "chapter1.Rmd"}
 ```
   
