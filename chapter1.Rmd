@@ -1,6 +1,12 @@
 
+---
+title: "Chapter 1"
+author: "Kisun Pokharel"
+output: html_document
+---
+
 # About the project
 
 *Write a short description about the course and add a link to your github repository here. This is an R markdown (.Rmd) file so you can use R markdown syntax. See the 'Useful links' page in the mooc area (chapter 1) for instructions.*
 
-The course name is "Introduction to Open Data Science" and has been organized for a second time. Most importantly, the course has been made available via University of Helsinki's MOOC platform. I look forward to getting a good foundation on open data science and completing the course. The first week of the course has been covering basic tools and requriements for rest of the course. I already had the tools (rstudio, git) installed in my PC and github user name created. Thus, I simply forked the IODS-project repo and published it as a github page. My github account with IODS-project repository looks like this: https://github.com/kisun/IODS-project
+The course name is "Introduction to Open Data Science" and has been organized for a second time. Most importantly, the course has been made available via University of Helsinki's MOOC platform. I look forward to getting a good foundation on open data science and completing the course. The first week of the course has been covering basic tools and requriements for rest of the course. I already had the tools (rstudio, git) installed in my PC and github user name created. Thus, I simply forked the IODS-project repo and published it as a github page. My github account with IODS-project repository can be found [here](https://github.com/kisun/IODS-project)

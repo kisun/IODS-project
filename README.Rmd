@@ -1,0 +1,10 @@
+---
+title: "README"
+author: "Kisun Pokharel"
+date: "November 6, 2017"
+output: html_document
+---
+
+#Introduction to Open Data Science
+
+The course name is **Introduction to Open Data Science, autumn 2017 (IODS17)** and has been organized for a second time. Most importantly, the course has been made available via University of Helsinki's [MOOC platform](https://mooc.helsinki.fi). The mooc page for IODS is [here](https://mooc.helsinki.fi/course/view.php?id=92). I look forward to getting a good foundation on open data science and completing the course. The first week of the course has been covering basic tools and requriements for rest of the course. I already had the tools (rstudio, git) installed in my PC and github user name created. Thus, I simply forked the IODS-project repo and published it as a github page. My github account with IODS-project repository can be found [here](https://github.com/kisun/IODS-project)
