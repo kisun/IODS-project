@@ -4,9 +4,21 @@ title: "Chapter 1"
 author: "Kisun Pokharel"
 output: html_document
 ---
+# Tools and Methods for open and reproducible research
 
-# About the project
+The first week of the course covered basic tools and requirements for the rest of the weeks. I practiced basics of R by completing a [Data Camp](datacamp.com) exercise called ["R Short and Sweet"](https://www.datacamp.com/courses/r-short-and-sweet). In addition I brushed up git and rmarkdown by going through the first workshop as detailed below.
 
-*Write a short description about the course and add a link to your github repository here. This is an R markdown (.Rmd) file so you can use R markdown syntax. See the 'Useful links' page in the mooc area (chapter 1) for instructions.*
+## Rstudio Exercise 1
 
-The course name is "Introduction to Open Data Science" and has been organized for a second time. Most importantly, the course has been made available via University of Helsinki's MOOC platform. I look forward to getting a good foundation on open data science and completing the course. The first week of the course has been covering basic tools and requriements for rest of the course. I already had the tools (rstudio, git) installed in my PC and github user name created. Thus, I simply forked the IODS-project repo and published it as a github page. My github account with IODS-project repository can be found [here](https://github.com/kisun/IODS-project)
+1. I already had a github account and I just forked "IODS-project" from Tuomo Nieminen's github. 
+2. I modified chapter1.Rmd file under IODS-project in Rstudio. Link to my IODS-project repository is [here](https://github.com/kisun/IODS-project).
+3. I opened the index.Rmd file and added my name. I commited the change and pushed to my github. 
+4. I created a new Rmarkdown file with Rstudio. I wrote few sentences about the course and saved it as README.Rmd under IODS-project. The link to my course diary is [here](https://kisun.github.io/IODS-project/)
+5. I replaced the default theme of my course diary web page with **Time Machine** theme.
+6. I uploaded all the changes to GitHub.
+7. I made sure that all changes could be seen.
+
+Note1: Something that was not mentioned in the course that could be useful or could be included in future. Rstudio works hand-in-hand with github so R scripts or Rmd documents can be directly linked to github. The parent directory of the course (locally downloaded to the PC) can be imported as a github project that can be authorized by one's username and password.
+
+keywords: github, linux, rstudio, rmarkdown 
+
