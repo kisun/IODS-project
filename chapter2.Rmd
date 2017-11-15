@@ -45,7 +45,7 @@ The summary of the model after removing insignificant variables is as follows.
 model_sig<-lm(points ~ attitude, data = lrn2014)
 summary(model_sig)
 ```
-
+More about model.
 ```{r, fig.width=11, fig.height=9}
 par(mfrow = c(2,2))
 plot(model_sig, which = c(1,2,5))
