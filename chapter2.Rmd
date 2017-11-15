@@ -9,7 +9,33 @@
 During the second week of this course, we have been delving deeper into R and statistics. We learned about regression models and the application of R in statistical modeling. The datacamp exercises along with the two embedded videos provided good background on the topics. Chapter three from ["An Introduction to Statistical Learning with Applications in R"](http://www-bcf.usc.edu/~gareth/ISL/) covered in-depth topics in linear regression. 
 
 ## RStudio Exercise 2
-### Part 1
+### Data Wrangling
 After going through the study materials, I attempted the RStudio exercise. The first part of the exercise was related to data wrangling where a subset of table was generated from a table with raw data (observations). The R script used to create the table can be found [here](https://github.com/kisun/IODS-project/tree/master/data/create_learning2014.R).
 
-### Part 2
+### Analysis
+The R script for this part is available [here](https://github.com/kisun/IODS-project/tree/master/data/analysis.R).
+```{r}
+lrn2014<-read.table("data/learning2014.csv")
+str(lrn2014)
+dim(lrn2014)
+```
+
+```{r, fig.width=11, fig.height=9}
+library(GGally)
+library(ggplot2)
+plot_lrn2014<-ggpairs(lrn2014, mapping = aes(col=gender, alpha = 0.3), lower=list(combo = wrap ("facethist", bins = 20)))
+plot_lrn2014
+```
+```{r}
+model<-lm(points ~ attitude + stra + surf, data = lrn2014)
+summary(model)
+```
+```{r}
+model_sig<-lm(points ~ attitude, data = lrn2014)
+summary(model_sig)
+```
+
+```{r, fig.width=11, fig.height=9}
+par(mfrow = c(2,2))
+plot(model_sig, which = c(1,2,5))
+```
