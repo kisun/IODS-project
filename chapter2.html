@@ -132,7 +132,7 @@ $(document).ready(function () {
 </div>
 <div id="analysis" class="section level3">
 <h3>Analysis</h3>
-<p>The R script for this part is available <a href="https://github.com/kisun/IODS-project/tree/master/data/analysis.R">here</a>. The data used in this exercise comes from an international survey of approaches to learning conducted by Kimmo Vehkalahti. The survey was funded by Teachers’ Academy funding (2013-2015) and the data was collected during December 2014 and January 2015. The survey was conducted in Finland with an aim to understand the relationship between learning approaches and students’ achievements in an introductory statistics course. A total of 183 individuals were included in the survey where the students were assessed for three different studying approaches - surface approach, deep approach and strategic approach. Additional details about the survey can be found <a href="http://www.slideshare.net/kimmovehkalahti/the-relationship-between-learning-approaches-and-students-achievements-in-an-introductory-statistics-course-in-finland">here</a>. After preprocessing in data wrangling step, we read the data into R and applied regression models.</p>
+<p>The R script for this part is available <a href="https://github.com/kisun/IODS-project/tree/master/data/analysis.R">here</a>. The data used in this exercise comes from an international survey of approaches to learning conducted by Kimmo Vehkalahti. The survey was funded by Teachers’ Academy funding (2013-2015) and the data was collected during December 2014 to January 2015. The survey was conducted in Finland with an aim to understand the relationship between learning approaches and students’ achievements in an introductory statistics course. A total of 183 individuals were included in the survey where the students were assessed for three different studying approaches - surface approach, deep approach and strategic approach. Additional details about the survey can be found <a href="http://www.slideshare.net/kimmovehkalahti/the-relationship-between-learning-approaches-and-students-achievements-in-an-introductory-statistics-course-in-finland">here</a>. After preprocessing in data wrangling step, we read the data into R and applied regression models.</p>
 <pre class="r"><code>lrn2014&lt;-read.table(&quot;data/learning2014.csv&quot;)
 str(lrn2014)</code></pre>
 <pre><code>## 'data.frame':    166 obs. of  7 variables:
@@ -145,7 +145,7 @@ str(lrn2014)</code></pre>
 ##  $ points  : int  25 12 24 10 22 21 21 31 24 26 ...</code></pre>
 <pre class="r"><code>dim(lrn2014)</code></pre>
 <pre><code>## [1] 166   7</code></pre>
-<p>The final table used for analysis consist data for seven different variables and 166 individuals (see above). Among the variables, gender is a factor variable, age and points are integers whereas attitude, deep, stra and surf variables include float values.</p>
+<p>The final table used for analysis consist data including seven different variables and 166 individuals (see above). Among the variables, gender is a factor variable, age and points are integers whereas attitude, deep, stra and surf variables include float values.</p>
 <pre><code>## Warning: package 'GGally' was built under R version 3.3.3</code></pre>
 <pre><code>## Warning: package 'ggplot2' was built under R version 3.3.3</code></pre>
 <pre class="r"><code>plot_lrn2014&lt;-ggpairs(lrn2014, mapping = aes(col=gender, alpha = 0.3), lower=list(combo = wrap (&quot;facethist&quot;, bins = 20)))

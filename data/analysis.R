@@ -12,10 +12,10 @@ dim(lrn2014)
 library(GGally)
 library(ggplot2)
 plot_lrn2014<-ggpairs(lrn2014, mapping = aes(col=gender, alpha = 0.3), lower=list(combo = wrap ("facethist", bins = 20)))
-plot_lrn2014 
+plot_lrn2014  #plot the summary of the data
 model<-lm(points ~ attitude + stra + surf, data = lrn2014)
-summary(model)
+summary(model) #get summary of the model
 model_sig<-lm(points ~ attitude, data = lrn2014)
-summary(model_sig)
+summary(model_sig) #get summary of the updated model
 par(mfrow = c(2,2))
-plot(model_sig, which = c(1,2,5))
+plot(model_sig, which = c(1,2,5)) #include three different plots 
