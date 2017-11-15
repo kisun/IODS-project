@@ -1,11 +1,5 @@
 # Regression and Model validation
 
-*Describe the work you have done this week and summarize your learning.*
-
-- Describe your work and results clearly. 
-- Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods
-- Assume the reader has no previous knowledge of your data or the more advanced methods you are using  
-
 During the second week of this course, we have been delving deeper into R and statistics. We learned about regression models and the application of R in statistical modeling. The datacamp exercises along with the two embedded videos provided good background on the topics. Chapter three from ["An Introduction to Statistical Learning with Applications in R"](http://www-bcf.usc.edu/~gareth/ISL/) covered in-depth topics in linear regression. 
 
 ## RStudio Exercise 2
@@ -40,14 +34,14 @@ The explanatory variables were selected based on the absolute correlation values
 model<-lm(points ~ attitude + stra + surf, data = lrn2014)
 summary(model)
 ```
-The summary of the model after removing insignificant variables is as follows.
+The summary of the model after removing insignificant variables is shown below. With regard to multiple r-squared value, we observed slight decrease in the value from 0.1927 (in earlier model) to 0.1856 (in updated model). However, other criteria for model evaluation such as F-Statistic (from 14.13 to 38.61) and p-value(3.156e-08 to 4.119e-09) have significantly improved. Thus, we can conclude that r-squared value alone may not determine the quality of the model. In this particular case, the lower r-squared value could be due to the outliers in the data. 
 ```{r}
 model_sig<-lm(points ~ attitude, data = lrn2014)
 summary(model_sig)
 ```
-More about model.
+The three different diagnostic plots are generated below.
 ```{r, fig.width=11, fig.height=9}
 par(mfrow = c(2,2))
 plot(model_sig, which = c(1,2,5))
 ```
-
+The assumptions behind all three models is linearity and normality. Based on the above plots, we can conclude that the errors are normally distributed (clearly observed in q-q plot). Moreover, residual versus model showed that the errors are not dependent on the attitude variable.Thus, assumptions in all models are valid.
