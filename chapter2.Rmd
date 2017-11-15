@@ -14,11 +14,14 @@ After going through the study materials, I attempted the RStudio exercise. The f
 
 ### Analysis
 The R script for this part is available [here](https://github.com/kisun/IODS-project/tree/master/data/analysis.R).
+The data used in this exercise comes from an international survey of approaches to learning conducted by Kimmo Vehkalahti. The survey was funded by Teachers' Academy funding (2013-2015) and the data was collected during December 2014 and January 2015. The survey was conducted in Finland with an aim to understand the relationship between learning approaches and students' achievements in an introductory statistics course. A total of 183 individuals were included in the survey where the students were assessed for three different studying approaches - surface approach, deep approach and strategic approach. Additional details about the survey can be found [here](http://www.slideshare.net/kimmovehkalahti/the-relationship-between-learning-approaches-and-students-achievements-in-an-introductory-statistics-course-in-finland
+). After preprocessing in data wrangling step, we read the data into R and applied regression models.
 ```{r}
 lrn2014<-read.table("data/learning2014.csv")
 str(lrn2014)
 dim(lrn2014)
 ```
+The final table used for analysis consist data for seven different variables and 166 individuals. Among the variables, gender is a factor variable, age and points are integers whereas attitude, deep, stra and surf variables include float values.
 
 ```{r, fig.width=11, fig.height=9}
 library(GGally)
@@ -39,3 +42,4 @@ summary(model_sig)
 par(mfrow = c(2,2))
 plot(model_sig, which = c(1,2,5))
 ```
+
