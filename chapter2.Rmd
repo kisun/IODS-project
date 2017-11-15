@@ -25,9 +25,11 @@ dim(lrn2014)
 ```
 The final table used for analysis consist data for seven different variables and 166 individuals (see above). Among the variables, gender is a factor variable, age and points are integers whereas attitude, deep, stra and surf variables include float values.
 
-```{r, fig.width=11, fig.height=9}
+```{r, fig.width=11, fig.height=9, echo=FALSE}
 library(GGally)
 library(ggplot2)
+```
+```{r, fig.width=11, fig.height=9}
 plot_lrn2014<-ggpairs(lrn2014, mapping = aes(col=gender, alpha = 0.3), lower=list(combo = wrap ("facethist", bins = 20)))
 plot_lrn2014
 ```
