@@ -23,11 +23,17 @@ The final table used for analysis consist data including seven different variabl
 library(GGally)
 library(ggplot2)
 ```
+```{r}
+summary(lrn2014)
+```
+The number of females (n=110) in this survey is almost two times the number of males (n=56). The age of students ranged from 17 years up to 55 years. 
+
 ```{r, fig.width=11, fig.height=9}
 plot_lrn2014<-ggpairs(lrn2014, mapping = aes(col=gender, alpha = 0.3), lower=list(combo = wrap ("facethist", bins = 20)))
 plot_lrn2014
 ```
-The graphical overview of the data is shown above. The number of females (n=110) in this survey is almost two times the number of males (n=56).It seems that the females have comparatively more diverese age groups than male counterparts. Here, the overall goal of the survey is to identify how age of the students, attitude towards learning and three different learning methods are contributing towards the final points. In general, attitude towards learning has the highest impact for overall outcome of the study (i.e points scored) whereas deep learning method do not have any impact.  
+The graphical overview of the data is shown above. Here, the overall goal of the survey is to identify how age of the students, attitude towards learning and three different learning methods are contributing towards the final points. In general, attitude towards learning has the highest impact for overall outcome of the study (i.e points scored) whereas deep learning method do not have any impact.  
+
 
 The explanatory variables were selected based on the absolute correlation values. The three explanatory variables for exam points (top correlated variables, also shown in the plot above) are student's attitude towards learning (attitude), learning strategy (stra) and surface learning approach (surf). The model based on three dependent variables on exam points has the maximum residual value of 10.9 and median of 0.5. Here, residual value is the remaining value after the predicted value is substracted by the observed value. The model summary showed that attitude is highly significant (Pr=1.93e-08) variable that affects the student's exam points. On the other hand, learning strategy and surface learning are not significant variables (Pr>0.01). 
 ```{r}
