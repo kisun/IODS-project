@@ -8,6 +8,7 @@ lrn2014<-read.table("data/learning2014.csv")
 #look at the structure and dimension
 str(lrn2014)
 dim(lrn2014)
+summary(lrn2014$gender)
 #load GGally and ggplot2 libraries. GGally package was installed (first time only)
 library(GGally)
 library(ggplot2)
