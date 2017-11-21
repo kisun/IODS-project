@@ -1,0 +1,21 @@
+#Logistic Regression
+
+One way to move on from linear regression is to consider settings where the dependent (target) variable is discrete. This opens a wide range of possibilities for modelling phenomena beyond the assumptions of continuity or normality.
+
+Logistic regression is a powerful method that is well suited for predicting and classifying data by working with probabilities. It belongs to a large family of statistical models called Generalized Linear Models (GLM). An important special case that involves a binary target (taking only the values 0 or 1) is the most typical and popular form of logistic regression. 
+
+We will learn the concept of odds ratio (OR), which helps to understand and interpret the estimated coefficients of a logistic regression model. We also take a brief look at cross-validation, an important principle and technique for assessing the performance of a statistical model with another data set, for example by splitting the data into a training set and a testing set.
+
+The slides and videos related to logistic regression can be found below.  
+[Video: Logistic regression: probability and odds](https://player.vimeo.com/video/202056054)  
+[Video: Logistic regression: Odds ratios](https://player.vimeo.com/video/202056098)  
+[Video: Cross-validation: training and testing sets](https://player.vimeo.com/video/202056141)  
+[Slides: Logistic regression](https://tuomonieminen.github.io/Helsinki-Open-Data-Science/#/23)
+
+After going through the videos, we practiced [DataCamp exercises on Logistic regression](https://campus.datacamp.com/courses/helsinki-open-data-science/logistic-regression?ex=1) and started to work on the workshop (RStudio Exercise 3.
+
+##RStudio Exercise 3
+
+###Data Wrangling
+
+###Data Analysis
