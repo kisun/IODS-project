@@ -29,10 +29,14 @@ colnames(alc)
 The data set in this exercise is a collection of information that is associated with student's performance in two Portugese high schools. Two subjects - Mathematics (mat) and Portugese language (por) were choosen in this study. The findings from this study were published in the Proceedings of 5th FUture BUsiness TEChnology Conference (FUBUTEC 2008) during April, 2008 in Porto, Protugal([link](http://www3.dsi.uminho.pt/pcortez/student.pdf)). Altogether 33 attributes were assessed covering different aspects of student's life. More detailed attribute information can be found [here](https://archive.ics.uci.edu/ml/datasets/Student+Performance)
 
 Here, the main goal of the analysis is to study how alcohol consumption is associated with other aspects in student's life. After going through the background information, it is a bit easier to identify interesting variables that could be related to alcohol consumption. Personally, I believe that the following are the four interesting variables that are associated with alcohol consumption:  
-**weekly study time (studytime)** : In my opinion, if a student spends more time studying, he will have less time for alcohol consumption.  
-**going out with friends (goout)** : In general, students go out with friends for parties and get-togethers. Attending such partiies and gatherings will lead higher alcohol consumption compared to those who do not participate in such activities.  
-**number of school absences (absences)** : We can think of two reasons in terms of alcohol consumption and school absences. The main reason is that when a student consumes alcohol (especially during the evening), he/she will have lesser desire to go school next day (depends on the level of consumption). Another reason might be that a student is absent from class because he has plan to drink alcholic beverages.  
-**quality of family relationships (famrel)** : I think the quality of family relationship will also affect student's attitude towards alcohol consumption and the student who has bad family relationship may consume more alcohol compare to one who has better family relationship.
+
+**Weekly study time (studytime)** : In my opinion, if a student spends more time studying, he will have less time for alcohol consumption.  
+
+**Going out with friends (goout)** : In general, students go out with friends for parties and get-togethers. Attending such partiies and gatherings will lead higher alcohol consumption compared to those who do not participate in such activities.  
+
+**Number of school absences (absences)** : We can think of two reasons in terms of alcohol consumption and school absences. The main reason is that when a student consumes alcohol (especially during the evening), he/she will have lesser desire to go school next day (depends on the level of consumption). Another reason might be that a student is absent from class because he has plan to drink alcholic beverages. 
+
+**Quality of family relationships (famrel)** : I think the quality of family relationship will also affect student's attitude towards alcohol consumption and the student who has bad family relationship may consume more alcohol compare to one who has better family relationship.
 
 
 
@@ -51,6 +55,9 @@ All my chosen variables have integer values whereas information about the alcoho
 summary(my_var_data)
 
 ```
+
+  
+  
 The summary provides basic statistics (see the table above) about each variables. If we pick a particular variable absences (i.e number of absences), we can see that some of the students are never absent (min = 0)in the class whereas there have been a student or two who was absent upto 45 days (max = 0). Overall, when we look at the summary of all variables, median vlaues reflect better than mean values to understand the natures of our hypotheses i.e more vs less (studytime and absences, goout), high vs low, good vs bad (famrel). According to that, studying more than three hours, going out more than three times a week, being absent in class more than 3 days a week and having a relationship scale of more than 4 lead the students to upper levels and vice versa.
 
 We can have graphical representation of each of the variables as bar charts (see below).
@@ -61,6 +68,7 @@ library(ggplot2)
 
 gather(my_var_data) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar()
 ```
+
 The summary tables provide information for alcohol consumption in relation to the factors for each selected variables.
 ```{r}
 t1 <- table("Study Time" = alc$studytime, "Alcohol Usage" = alc$high_use)
