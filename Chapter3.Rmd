@@ -17,5 +17,30 @@ After going through the videos, we practiced [DataCamp exercises on Logistic reg
 ##RStudio Exercise 3
 
 ###Data Wrangling
+The data for Exercise 3 was downloaded from UCI Machine Learning Repository ([link](https://archive.ics.uci.edu/ml/datasets/Student+Performance)). The zipped file contained two tables, namely student-mat.csv and student-por.csv. In this data wrangling exercise, the main task was to join two data sets and create a data frame for logistic regression analysis. More detailed information about the data is present in the next section (Data Analysis) of this exercise. The R script associated with this exercise can be found [here](https://github.com/kisun/IODS-project/blob/master/data/create_alc.R)
 
 ###Data Analysis
+The joined student alcohol consumption data that was created during wrangling exercise was read into R. 
+```{r}
+alc<-read.table("data/alc.csv")
+#head(alc)
+colnames(alc)
+```
+The data set in this exercise is a collection of information that is associated with student's performance in two Portugese high schools. Two subjects - Mathematics (mat) and Portugese language (por) were choosen in this study. The findings from this study were published in the Proceedings of 5th FUture BUsiness TEChnology Conference (FUBUTEC 2008) during April, 2008 in Porto, Protugal([link](http://www3.dsi.uminho.pt/pcortez/student.pdf)). Altogether 33 attributes were assessed covering different aspects of student's life. More detailed attribute information can be found [here](https://archive.ics.uci.edu/ml/datasets/Student+Performance)
+
+Here, the main goal of the analysis is to study how alcohol consumption is associated with other aspects in student's life. After going through the background information, it is a bit easier to identify interesting variables that could be related to alcohol consumption. Personally, I believe that the following are the four interesting variables that are associated with alcohol consumption:  
+**weekly study time (studytime)** : In my opinion, if a student spends more time studying, he will have less time for alcohol consumption.  
+**going out with friends (goout)** : In general, students go out with friends for parties and get-togethers. Attending such partiies and gatherings will lead higher alcohol consumption compared to those who do not participate in such activities.  
+**number of school absences (absences)** : We can think of two reasons in terms of alcohol consumption and school absences. The main reason is that when a student consumes alcohol (especially during the evening), he/she will have lesser desire to go school next day (depends on the level of consumption). Another reason might be that a student is absent from class because he has plan to drink alcholic beverages.  
+**quality of family relationships (famrel)** : I think the quality of family relationship will also affect student's attitude towards alcohol consumption and the student who has bad family relationship may consume more alcohol compare to one who has better family relationship.
+
+
+
+In the following section, we will see in details how my hypotheses are explained by the data.
+
+Let's look into more detail how the four variables I chose are affecting alcohol consumption in high school students.
+```{r}
+m<-glm(high_use ~ studytime + goout + absences + famrel, data = alc, family = "binomial")
+summary(m)
+```
+Among four variables, going out with friends (goout) is strongly coorelated (Pr = 2.82e-10) with alcohol consumption whereas quality of the family relationship (famrel) has comparatively lower impact towards alcohol consumption. Moreover, all four variables are significantly associated with alcohol consumption. Out of four variables, weekly study time (studytime) and the quality of family relationship (famrel) are inversely related to alcohol consumption. In other words, the more the number of hours spent in studying and the better the quality of the samily relationship, the lower the alcohol consumption. On the other hand, the number of school absences and frequency of going out with friends is positively correlated with alcohol consumption. This means that, if a student has higher number of school absences and goes out frequently with friends, his alcohol consumption is higher. 
