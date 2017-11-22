@@ -37,10 +37,103 @@ Here, the main goal of the analysis is to study how alcohol consumption is assoc
 
 
 In the following section, we will see in details how my hypotheses are explained by the data.
+First, let's summarise the subset of the table which includes the variables I have chosen.
+```{r}
+library(dplyr)
 
-Let's look into more detail how the four variables I chose are affecting alcohol consumption in high school students.
+my_var<- c("studytime", "absences", "goout", "famrel", "high_use")
+
+my_var_data <- select(alc, one_of(my_var))
+str(my_var_data)
+```
+All my chosen variables have integer values whereas information about the alcohol consumption is logical i.e True or False. Moreover, the str function also revealed the dimension of the selected data i.e 382 observations for five variables. After getting the data types, we can proceed with summarizing the table as follows:
+```{r}
+summary(my_var_data)
+
+```
+The summary provides basic statistics (see the table above) about each variables. If we pick a particular variable absences (i.e number of absences), we can see that some of the students are never absent (min = 0)in the class whereas there have been a student or two who was absent upto 45 days (max = 0). Overall, when we look at the summary of all variables, median vlaues reflect better than mean values to understand the natures of our hypotheses i.e more vs less (studytime and absences, goout), high vs low, good vs bad (famrel). According to that, studying more than three hours, going out more than three times a week, being absent in class more than 3 days a week and having a relationship scale of more than 4 lead the students to upper levels and vice versa.
+
+We can have graphical representation of each of the variables as bar charts (see below).
+```{r}
+library(tidyr)
+library(ggplot2)
+
+
+gather(my_var_data) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar()
+```
+
+
+Box plots provide more meaningful information for our variables as we can see the relationship of each four variables compared to alcohol consumption. Let's look into more detail how the four variables I chose are affecting alcohol consumption in high school students using box plots.
+
+```{r, fig.width=11, fig.height=10}
+library(ggpubr)
+g1 <- ggplot(alc, aes(x = high_use, y = studytime))
+
+p1=g1 + geom_boxplot() + xlab("Alcohol Consumption")+ ylab("Study Time") + ggtitle("Study hours and alcohol consumption")
+
+g2 <- ggplot(alc, aes(x = high_use, y = absences))
+
+p2=g2 + geom_boxplot() + xlab("Alcohol Consumption")+ ylab("Number of School Absences")  + ggtitle("School absences and alcohol consumption") 
+
+g3 <- ggplot(alc, aes(x = high_use, y = goout))
+
+p3=g3 + geom_boxplot() + xlab("Alcohol Consumption")+ ylab("Going Out With Friends")  + ggtitle("Going out with friends and alcohol consumption") 
+g4 <- ggplot(alc, aes(x = high_use, y = famrel))
+
+p4=g4 + geom_boxplot() + xlab("Alcohol Consumption")+ ylab("Quality Family Relationship")  + ggtitle("Family relationship and alcohol consumption") 
+
+ggarrange(p1, p2, p3 , p4,  labels = c("A", "B", "C", "D"), ncol = 2, nrow = 2)
+
+```
+The four box plots above show how four of the chosen variables are associated with alcohol consumption. In each of the plots, x-axis shows the two different factors that measure the level of alcohol consumption i.e True for high consumption and False for low consumption. All of the box plots above show that what I hypothesized about the variables I selected in terms of alcohol consumption seem to be valid. We can see, they are valid but are these significantly valid observations? I will do a series of modeling and validations in the following sections.
+
+**Logistic Regression**
 ```{r}
 m<-glm(high_use ~ studytime + goout + absences + famrel, data = alc, family = "binomial")
 summary(m)
 ```
+
+
 Among four variables, going out with friends (goout) is strongly coorelated (Pr = 2.82e-10) with alcohol consumption whereas quality of the family relationship (famrel) has comparatively lower impact towards alcohol consumption. Moreover, all four variables are significantly associated with alcohol consumption. Out of four variables, weekly study time (studytime) and the quality of family relationship (famrel) are inversely related to alcohol consumption. In other words, the more the number of hours spent in studying and the better the quality of the samily relationship, the lower the alcohol consumption. On the other hand, the number of school absences and frequency of going out with friends is positively correlated with alcohol consumption. This means that, if a student has higher number of school absences and goes out frequently with friends, his alcohol consumption is higher. 
+
+```{r}
+Coef<-coef(m)
+OR<-Coef %>% exp
+CI<-confint(m) %>% exp
+cbind(Coef, OR, CI)
+
+```
+ **Exploring predictive power of the model**
+ 
+```{r}
+ #predict the probability
+ 
+ pred_prob <- predict(m, type = "response")
+ 
+ #add predicted probabilities and mutate the model
+ alc<-mutate(alc, probability = pred_prob)
+ #we will use the probability to validate the probabilities of choses four variables
+ alc<-mutate(alc, prediction = probability > 0.5)
+ table(high_use = alc$high_use, prediction = alc$prediction)
+ 
+```
+**Cross Validation**
+Here we will perform 10-fold cross validation of our model
+
+```{r}
+#load required library
+library(boot)
+#first we need to define loss function
+LF<-function(class, prob){
+  n_wrong <- abs(class - prob) > 0.5
+  mean(n_wrong)
+}
+#now we compute the average number of wrong predictions
+LF(alc$high_use, alc$prob)
+#then we do 10-fold cross validation
+CV<-cv.glm(data = alc, cost = LF, glmfit = m, K = 10 )
+#finally look at the average number of wrong predictions
+CV$delta[1]
+```
+
+
