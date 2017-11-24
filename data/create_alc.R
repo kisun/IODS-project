@@ -60,5 +60,5 @@ alc<-mutate(alc, high_use = alc_use > 2)
 #joined and modified data set to the ‘data’ folder, using for example write.csv() or write.table() functions. (1 point)
 
 glimpse(alc)
-write.csv(alc, file = "data/alc.csv")
+write.table(alc, file = "data/alc.csv", sep = "\t")
 

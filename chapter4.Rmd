@@ -1,0 +1,37 @@
+#Clustering and Classification
+The list of materials and links related to clustering and classification can be found below.  
+[course slides by Emma Kämäräinen](https://tuomonieminen.github.io/Helsinki-Open-Data-Science/#/41)  
+[DataCamp exercise](https://campus.datacamp.com/courses/helsinki-open-data-science/clustering-and-classification?ex=1)
+
+##RStudio Exercise 4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**Additional links (also included in the course slides)**  
+[Blog post by Jason Browniee on LDA](https://machinelearningmastery.com/linear-discriminant-analysis-for-machine-learning/)  
+[R-bloggers post on LDA](https://www.r-bloggers.com/computing-and-visualizing-lda-in-r/)
+[R-bloggers post on K Means Clustering in R](https://www.r-bloggers.com/k-means-clustering-in-r/)
