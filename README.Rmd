@@ -1,4 +1,4 @@
 
-# Introduction to Open Data Science
+## Introduction to Open Data Science
 
 The course name is **Introduction to Open Data Science, autumn 2017 (IODS17)** and has been organized for a second time. Most importantly, the course has been made available via University of Helsinki's [MOOC platform](https://mooc.helsinki.fi). The mooc page for IODS is [here](https://mooc.helsinki.fi/course/view.php?id=92). The learning diary for this course is published as a github page [here](https://kisun.github.io/IODS-project/). All the learning outcomes and assignments have been included in the diary. 
