@@ -3,7 +3,7 @@ title: "IODS course project"
 author: "Kisun Pokharel"
 output:
   html_document:
-    theme: cosmo
+    theme: default
     toc: true
     toc_depth: 2
     fig_caption: true
