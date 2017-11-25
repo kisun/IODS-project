@@ -2,24 +2,6 @@ name: IODS Project
 
 theme: jekyll-theme-hacker
 
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Marketplace
-Explore
- @kisun
- Sign out
- Watch 13
-  Star 156  Fork 207 maciakl/Sample-Jekyll-Site
- Code  Issues 1  Pull requests 1  Projects 0  Wiki  Insights
-Branch: master Find file Copy pathSample-Jekyll-Site/_config.yml
-62f7758  on Jun 3, 2014
-@maciakl maciakl Added Gruntfile.coffee to ignore list
-1 contributor
-RawBlameHistory     
-41 lines (29 sloc)  1.65 KB
 # Name of your blog (this will show up at the top of your page and in the RSS feed)
 name: Sample Jekyll Blog
 
