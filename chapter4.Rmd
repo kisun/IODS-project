@@ -4,33 +4,192 @@ The list of materials and links related to clustering and classification can be 
 [DataCamp exercise](https://campus.datacamp.com/courses/helsinki-open-data-science/clustering-and-classification?ex=1)
 
 ##RStudio Exercise 4
+After solving the DataCamp exercise and going through the embedded links, I got a general overview on the topic. In the following sections, I will prepare a report based on the exercise instructions.
 
 
+**Data**  
+
+In this exercise, I will be using Boston data from [MASS package](https://cran.r-project.org/web/packages/MASS/index.html). 
+```{r ex2}
+library(MASS)
+data(Boston)
+str(Boston)
+dim(Boston)
+```
+The **Boston** data was collected to study the housing values in the suburbs of Boston. The table contains 506 observations for 14 different variables. The descriptions for each of the 14 variables are listed below.
+
+Variables | Description
+--------- | -----------------------------------------------------------------
+crim | per capita crime rate by town.
+zn | proportion of residential land zoned for lots over 25,000 sq.ft.
+indus | proportion of non-retail business acres per town.
+chas | Charles River dummy variable (= 1 if tract bounds river; 0 otherwise).
+nox | nitrogen oxides concentration (parts per 10 million).
+rm | average number of rooms per dwelling.
+age | proportion of owner-occupied units built prior to 1940.
+dis | weighted mean of distances to five Boston employment centres.
+rad | index of accessibility to radial highways.
+tax | full-value property-tax rate per \$10,000.
+ptratio | pupil-teacher ratio by town.
+black | 1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town.
+lstat | lower status of the population (percent).
+medv | median value of owner-occupied homes in \$1000s.
+
+**Data Summary**  
+
+Now, let's look at the summary of the boston data in the form of table (instead of default layout) using *pandoc.table* function of **pander** package. 
+```{r ex3.1}
+library(pander)
+pandoc.table(summary(Boston), caption = "Summary of Boston data", split.table = 120)
+```
+
+After getting a summary of the data, it's worthwhile to get graphical representation. This time we will make a correlogram, a graphical representation of coorelation matrix. The *corrplot* function of **corrplot** package wll be used. 
+
+```{r, ex3.2, fig.width=9, fig.height=9}
+library(corrplot)
+library(dplyr)
+corr_boston<-cor(Boston) %>% round(2)
+pandoc.table(corr_boston, split.table = 120)
+corrplot(corr_boston, method = "circle", tl.col = "black", type = "upper" , tl.cex = 0.9 )
+```
+
+In the graph, positive correlations are displayed in blue and negative correlations in red color with intensity of the color and circle size being proportional to the correlation coefficients.
 
 
+**Data Standardization**
+```{r ex_4.1}
+boston_scaled<-scale(Boston)
+pandoc.table(summary(Boston), split.table = 120)
+```
+
+Next, we will create quantile vector for crime
+
+```{r, ex_4.2}
+boston_scaled<- data.frame(boston_scaled)
+qvc<-quantile(boston_scaled$crim)
+crime <- cut(boston_scaled$crim, breaks = qvc, label = c("low", "med_low", "med_high", "high"), include.lowest = TRUE)
+boston_scaled <- dplyr::select(boston_scaled, -crim)
+boston_scaled<-data.frame(boston_scaled, crime)
+table(boston_scaled$crime)
+```
+
+**Linear Discriminant Analysis**
+```{r ex_5}
+library(MASS)
+n<-nrow(boston_scaled)
+ind <- sample(n, size = n*0.8)
+train <- boston_scaled[ind,]
+test <- boston_scaled[-ind,]
+lda.fit <- lda(crime ~ ., data = train)
 
 
+# target classes as numeric
+classes <- as.numeric(train$crime)
 
+# plot the lda results
+plot(lda.fit, dimen = 2, col = classes, pch = classes)
+```
 
+**Class Prediction**
 
+```{r, ex_6}
+crime_cat<-test$crime
+test<-dplyr::select(test, -crime)
+lda.pred<-predict(lda.fit, newdata = test)
+table(correct = crime_cat, predicted = lda.pred$class)
+```
 
+**K-means Clustering**
+```{r, ex_7.1}
+data(Boston)
+boston_scaled1<-as.data.frame(scale(Boston))
+dist_eu<-dist(boston_scaled1)
+summary(dist_eu)
+head(boston_scaled1)
+```
+Inspired by [this R-blogger post](https://www.r-bloggers.com/finding-optimal-number-of-clusters/) and [this Stackoverflow question](https://stackoverflow.com/questions/15376075/cluster-analysis-in-r-determine-the-optimal-number-of-clusters)
 
+First we start with random cluster number. Let's start with k=4 and apply k-means on the data.
+```{r}
+#Let us apply kmeans for k=4 clusters 
+kmm = kmeans(boston_scaled1,6,nstart = 50 ,iter.max = 15) #we keep number of iter.max=15 to ensure the algorithm converges and nstart=50 to ensure that atleat 50 random sets are choosen  
+kmm
+```
 
+Let's use Elbow method to estimate number of clusters.
+```{r ex7.2}
+#Elbow Method for finding the optimal number of clusters
+library(ggplot2)
+set.seed(1234)
+# Compute and plot wss for k = 2 to k = 15.
+k.max <- 15
+data <- boston_scaled1
+wss <- sapply(1:k.max, 
+              function(k){kmeans(data, k)$tot.withinss})
+#wss
+qplot(1:k.max, wss, geom = c("point", "line"), span = 0.2,
+     xlab="Number of clusters K",
+     ylab="Total within-clusters sum of squares")
+```
 
+```{r, ex_7.3}
+library(NbClust)
+nb <- NbClust(boston_scaled1, diss=NULL, distance = "euclidean", 
+              min.nc=2, max.nc=5, method = "kmeans", 
+              index = "all", alphaBeale = 0.1)
+#hist(nb$Best.nc[1,], breaks = max(na.omit(nb$Best.nc[1,])))
 
+```
+Now, it's much clearer that the data is described better with two clusters. With that, we run k-means algorithm again.
 
+```{r, ex7.4}
+#Let us apply kmeans for k=4 clusters 
+km_final = kmeans(boston_scaled1, centers = 2) #we keep number of iter.max=15 to ensure the algorithm converges and nstart=50 to ensure that atleat 50 random sets are choosen  
+pairs(boston_scaled1[3:9], col=km_final$cluster)
 
+```
 
+**More LDA**
+```{r, bonus}
+boston_scaled2<-as.data.frame(scale(Boston))
+head(boston_scaled2)
+km_bs2<-kmeans(dist_eu, centers = 6)
+#head(km_bs2)
+myclust<-data.frame(km_bs2$cluster)
+#myclust<-data.frame(km_bs2$cluster)
+#myvar$boston_scaled2
+myvar <- (myclust[,1])
+#head(boston_scaled2)
+lda.fit_bs2<-lda(myvar~., data = boston_scaled2 )
+lda.fit_bs2
 
+# the function for lda biplot arrows
+lda.arrows <- function(x, myscale = 1, arrow_heads = 0.1, color = "red", tex = 0.75, choices = c(1,2)){
+  heads <- coef(x)
+  arrows(x0 = 0, y0 = 0, 
+         x1 = myscale * heads[,choices[1]], 
+         y1 = myscale * heads[,choices[2]], col=color, length = arrow_heads)
+  text(myscale * heads[,choices], labels = row.names(heads), 
+       cex = tex, col=color, pos=3)
+}
+plot(lda.fit_bs2, dimen = 2)
+lda.arrows(lda.fit_bs2, myscale = 3)
 
+```
 
+**Better ways to visualize LDA**
+```{r, superbonus}
+library(plotly)
+model_predictors <- dplyr::select(train, -crime)
+# check the dimensions
+dim(model_predictors)
+dim(lda.fit$scaling)
+# matrix multiplication
+matrix_product <- as.matrix(model_predictors) %*% lda.fit$scaling
+matrix_product <- as.data.frame(matrix_product)
+plot_ly(x = matrix_product$LD1, y = matrix_product$LD2, z = matrix_product$LD3, type= 'scatter3d', mode='markers', color = train$crim)
 
-
-
-
-
-
-
+```
 **Additional links (also included in the course slides)**  
 [Blog post by Jason Browniee on LDA](https://machinelearningmastery.com/linear-discriminant-analysis-for-machine-learning/)  
 [R-bloggers post on LDA](https://www.r-bloggers.com/computing-and-visualizing-lda-in-r/)
