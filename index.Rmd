@@ -12,14 +12,14 @@ output:
     code_folding: hide
 ---
 
----
-title: "Untitled"
-output: 
-  flexdashboard::flex_dashboard:
-    css: styles.css
-    orientation: columns
-    vertical_layout: fill
----
+```{css}
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+```
 
 ***
 
