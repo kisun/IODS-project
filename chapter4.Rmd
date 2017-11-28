@@ -113,7 +113,6 @@ First we start with random cluster number. Let's start with k=4 and apply k-mean
 ```{r}
 #Let us apply kmeans for k=4 clusters 
 kmm = kmeans(boston_scaled1,6,nstart = 50 ,iter.max = 15) #we keep number of iter.max=15 to ensure the algorithm converges and nstart=50 to ensure that atleat 50 random sets are choosen  
-kmm
 ```
 
 Let's use Elbow method to estimate number of clusters.
@@ -178,7 +177,7 @@ lda.arrows(lda.fit_bs2, myscale = 3)
 ```
 
 **Better ways to visualize LDA**
-```{r, superbonus}
+```{r, superbonus, fig.width=10, fig.height=10}
 library(plotly)
 model_predictors <- dplyr::select(train, -crime)
 # check the dimensions
