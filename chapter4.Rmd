@@ -50,7 +50,7 @@ library(corrplot)
 library(dplyr)
 corr_boston<-cor(Boston) %>% round(2)
 pandoc.table(corr_boston, split.table = 120)
-corrplot(corr_boston, method = "circle", tl.col = "black", type = "upper" , tl.cex = 0.9 )
+corrplot(corr_boston, method = "circle", tl.col = "black", cl.pos="b", tl.pos = "d", type = "upper" , tl.cex = 0.9 )
 ```
 
 In the graph, positive correlations are displayed in blue and negative correlations in red color with intensity of the color and circle size being proportional to the correlation coefficients.
@@ -152,14 +152,16 @@ pairs(boston_scaled1[3:9], col=km_final$cluster)
 ```{r, bonus}
 boston_scaled2<-as.data.frame(scale(Boston))
 head(boston_scaled2)
+set.seed(1234)
 km_bs2<-kmeans(dist_eu, centers = 6)
 #head(km_bs2)
 myclust<-data.frame(km_bs2$cluster)
+boston_scaled2$clust<-km_bs2$cluster
 #myclust<-data.frame(km_bs2$cluster)
 #myvar$boston_scaled2
-myvar <- (myclust[,1])
-#head(boston_scaled2)
-lda.fit_bs2<-lda(myvar~., data = boston_scaled2 )
+#myvar <- (myclust[,1])
+head(boston_scaled2)
+lda.fit_bs2<-lda(clust~., data = boston_scaled2 )
 lda.fit_bs2
 
 # the function for lda biplot arrows
@@ -177,7 +179,7 @@ lda.arrows(lda.fit_bs2, myscale = 3)
 ```
 
 **Better ways to visualize LDA**
-```{r, superbonus, fig.width=10, fig.height=10}
+```{r, superbonus, fig.width=8, fig.height=8}
 library(plotly)
 model_predictors <- dplyr::select(train, -crime)
 # check the dimensions
@@ -187,6 +189,23 @@ dim(lda.fit$scaling)
 matrix_product <- as.matrix(model_predictors) %*% lda.fit$scaling
 matrix_product <- as.data.frame(matrix_product)
 plot_ly(x = matrix_product$LD1, y = matrix_product$LD2, z = matrix_product$LD3, type= 'scatter3d', mode='markers', color = train$crim)
+```
+
+```{r superbonus.1, fig.width=8, fig.height=8}
+#Second 3D plot where colors are defined by clusters of k-means
+#k-means_matpro<-kmeans(matrix_product, )
+#head(train)
+#train$cl<-myclust
+#boston_scaled2$cl<-myclust
+#head(boston_scaled2)
+#head(train)
+#rownames(train)
+#rownames(boston_scaled2)
+train$cl <- boston_scaled2$clust[match(rownames(train), rownames(boston_scaled2))]
+#head(train)
+#nrow(train)
+
+plot_ly(x = matrix_product$LD1, y = matrix_product$LD2, z = matrix_product$LD3, type = "scatter3d", mode="markers", color = train$cl)
 
 ```
 **Additional links (also included in the course slides)**  
