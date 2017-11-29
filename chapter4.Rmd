@@ -44,7 +44,7 @@ pandoc.table(summary(Boston), caption = "Summary of Boston data", split.table = 
 
 After getting a statistical summary of, it's worthwhile to see to what extent each variables are correlated. For that, we use **corr()** function on Boston data. 
 
-```{r, ex3.2, fig.width=9, fig.height=9}
+```{r, ex3.2}
 library(corrplot)
 library(dplyr)
 corr_boston<-cor(Boston) %>% round(2)
@@ -54,7 +54,7 @@ pandoc.table(corr_boston, split.table = 120)
 The table above shows the correlation matrix of all variables. Bird's eye view on the matrix shows that **tax** (full-value property-tax rate) and **rad** (index of accessibility to radial highways) are the most positively correlated variables, whereas **dis** (weighted mean of distances to five Boston employment centres) and **age** (proportion of owner-occupied units built prior to 1940) are the most negatively correlated variables. Moreover, **chas** (Charles river dummy variable) and **rad** are the two variables that are least correlated.
 
 The same information can be presented as a graphical overview. This time we will make a correlogram, a graphical representation of coorelation matrix. The *corrplot()* function of **corrplot** package wll be used to visualize the correlation between all the variables of the Boston dataset.
-```{r}
+```{r, fig.width=9, fig.height=9}
 corrplot(corr_boston, method = "circle", tl.col = "black", cl.pos="b", tl.pos = "d", type = "upper" , tl.cex = 0.9 )
 ```
 
@@ -196,15 +196,15 @@ The clusters in the above plot are divided into two groups and represented by tw
 **More LDA**  
 In the following section, we will use random cluster number (k=6) and perform LDA. We follow the the basic steps of scaling and distance calculation. Finally we will see how the biplot looks like on the whole data set when we try to group them into six categories.
 
-```{r, bonus}
+```{r, bonus, , fig.width=9, fig.height=9}
 boston_scaled2<-as.data.frame(scale(Boston))
-head(boston_scaled2)
+#head(boston_scaled2)
 set.seed(1234)
 km_bs2<-kmeans(dist_eu, centers = 6)
 #head(km_bs2)
 myclust<-data.frame(km_bs2$cluster)
 boston_scaled2$clust<-km_bs2$cluster
-head(boston_scaled2)
+#head(boston_scaled2)
 lda.fit_bs2<-lda(clust~., data = boston_scaled2 )
 lda.fit_bs2
 
