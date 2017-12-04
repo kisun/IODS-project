@@ -20,7 +20,7 @@ colnames(gii)<-c("GIIR", "Country", "GII", "MatMor", "Ados_BR", "Parli_pcnt", "E
 #Let's check the changes have happened
 head(hd)
 head(gii)
-
+library(dplyr)
 #Mutate the "Gender inequality" data. Here, we will create two additional variables for "gii" data.
 #1. we create ratio of Female and Male population with secondary education. Let's name new variable Edu2R, where Edu2R=Edu2_F/Edu2_M
 gii_m<-mutate(gii, Edu2R = Edu2_F/Edu2_M)
@@ -36,6 +36,15 @@ str(human)
 dim(human)
 write.table(human, "data/human.csv")
 
+
+
+
+
+
+
+
+#RStudio Exercise 5: Data Wrangling
+
 #The following is the continuation of the above data.
 #read the table that was created earlier.
 #Either (1) read the table created earlier or (2) from the web!
@@ -44,7 +53,7 @@ my_human<-read.table("data/human.csv")
 human<-read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human1.txt")
 #muatate the data by transforming GNI variable to numeric
 library(stringr)
-str_replace(human$GNI, pattern = ",", replace = "") %>% as.numeric
+human$GNI <- str_replace(human$GNI, pattern = ",", replace = "") %>% as.numeric
 #exclude all variables except country, edu2.fm, labo.fm, edu.exp, life.exp, gni, mat.mor, ado.birth and parli.f
 colnames(human)
 #[1] "GIIR"       "Country"    "GII"        "MatMor"     "Ados_BR"    "Parli_pcnt" "Edu2_F"    
@@ -58,7 +67,7 @@ human<-select(human, one_of(keep))
 
 #remove all rows with missing values
 
-human_clean<-filter(human, complete.cases(human) == T)
+human_clean<-filter(human, complete.cases(human))
 tail(human_clean, 10)
 #remove the last seven rows that are not countries
 human_clean<-human_clean[1:(nrow(human_clean)-7),]
