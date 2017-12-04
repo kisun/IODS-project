@@ -35,3 +35,40 @@ head(human)
 str(human)
 dim(human)
 write.table(human, "data/human.csv")
+
+#The following is the continuation of the above data.
+#read the table that was created earlier.
+#Either (1) read the table created earlier or (2) from the web!
+my_human<-read.table("data/human.csv")
+#reading from web is preferred for consistency with the exercise instructions
+human<-read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human1.txt")
+#muatate the data by transforming GNI variable to numeric
+library(stringr)
+str_replace(human$GNI, pattern = ",", replace = "") %>% as.numeric
+#exclude all variables except country, edu2.fm, labo.fm, edu.exp, life.exp, gni, mat.mor, ado.birth and parli.f
+colnames(human)
+#[1] "GIIR"       "Country"    "GII"        "MatMor"     "Ados_BR"    "Parli_pcnt" "Edu2_F"    
+#[8] "Edu2_M"     "LFP_F"      "LFP_M"      "Edu2R"      "LFPR"       "HDIR"       "HDI"       
+#[15] "LifeExp"    "EduYr"      "EduYr_mean" "GNI"        "GNI.HDR"  
+
+keep<-c("Country", "Edu2.FM", "Labo.FM", "Edu.Exp", "Life.Exp", "GNI", "Mat.Mor", "Ado.Birth", "Parli.F" )
+
+#let's select the above variables
+human<-select(human, one_of(keep))
+
+#remove all rows with missing values
+
+human_clean<-filter(human, complete.cases(human) == T)
+tail(human_clean, 10)
+#remove the last seven rows that are not countries
+human_clean<-human_clean[1:(nrow(human_clean)-7),]
+tail(human_clean)
+#designate country names as the row names
+rownames(human_clean)<-human_clean$Country
+dim(human_clean)
+#remove the Country column as it has now become rowname
+human_clean<-select(human_clean, -Country)
+dim(human_clean)
+head(human_clean)
+
+write.table(human_clean, "data/human.csv")
