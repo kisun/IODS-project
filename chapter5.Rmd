@@ -2,6 +2,7 @@
 
 In this chapter, we will practice dimensionality reduction techniques using "human" data which was originated from the United Nations Development Programme (UNDP). Additional information about the data can be found [here](http://hdr.undp.org/en/content/human-development-index-hdi).
 
+## RStudio Exercise 5
 First we will load the data into R and get an overview of it.
 ```{r}
 human<-read.table("data/human.csv")
